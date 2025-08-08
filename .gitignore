@@ -1,0 +1,5 @@
+# Ignore dependencies and build output
+node_modules
+apps/web/.next
+apps/web/dist
+pnpm-lock.yaml

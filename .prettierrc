@@ -1,0 +1,6 @@
+{
+  // Prettier rules ensure consistent code style
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all"
+}
