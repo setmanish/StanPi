@@ -4,3 +4,10 @@ apps/web/.next
 apps/web/dist
 pnpm-lock.yaml
 apps/web/public/charting_library/
+
+# TradingView (do not commit)
+apps/web/public/charting_library/
+
+# macOS
+.DS_Store
+**/.DS_Store
