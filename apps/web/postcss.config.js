@@ -1,8 +1,10 @@
-/** @type {import('postcss-load-config').Config} */
-// PostCSS config hooking Tailwind and autoprefixer into Next.js build pipeline
-module.exports = {
+/**
+ * PostCSS configuration hooking Tailwind and autoprefixer into the build.
+ * Using ESM export so it works with the project's "type": "module".
+ */
+export default {
   plugins: {
     tailwindcss: {},
-    autoprefixer: {}
-  }
+    autoprefixer: {},
+  },
 };
