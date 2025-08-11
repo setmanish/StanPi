@@ -3,3 +3,4 @@ node_modules
 apps/web/.next
 apps/web/dist
 pnpm-lock.yaml
+apps/web/public/charting_library/

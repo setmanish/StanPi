@@ -2,7 +2,7 @@
  * Deterministic mock data provider used during early development.
  * Swap this out for a real API client when backend endpoints exist.
  */
-import { assetArraySchema, candleArraySchema } from './schemas.js';
+import { assetArraySchema, candleArraySchema } from './schemas';
 function mulberry32(seed) {
     return function () {
         let t = (seed += 0x6d2b79f5);

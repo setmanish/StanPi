@@ -2,8 +2,8 @@
  * Deterministic mock data provider used during early development.
  * Swap this out for a real API client when backend endpoints exist.
  */
-import { assetArraySchema, candleArraySchema } from './schemas.js';
-import type { Asset, Candle, DataProvider } from './types.js';
+import { assetArraySchema, candleArraySchema } from './schemas';
+import type { Asset, Candle, DataProvider } from './types';
 
 function mulberry32(seed: number) {
   return function () {
