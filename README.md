@@ -25,3 +25,17 @@ A web app for custom data analysis.
 - [ ] Chart page with candlesticks
 - [ ] Pluggable custom data provider
 - [ ] Deploy (Vercel)
+
+## Charts
+
+The Asset page supports three pluggable chart renderers:
+
+1. **Lightweight Charts** – default, uses our mock data provider.
+2. **TradingView Charting Library** – drop the official `charting_library/`
+   folder into `apps/web/public/` and set
+   `NEXT_PUBLIC_TV_DATAFEED_URL=/api/tv` to use the mock UDF endpoints.
+3. **TradingView Embedded Widget** – injects TradingView's own data; no custom
+   data feed.
+
+Use the selector on the asset page to switch modes. If the Charting Library
+files are missing the app falls back to the lightweight renderer.
