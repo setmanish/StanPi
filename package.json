@@ -2,13 +2,16 @@
   "name": "stanpi",
   "private": true,
   "packageManager": "pnpm@8.15.1",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "dev": "pnpm --filter web dev",
-    "build": "pnpm --filter web build",
+    "build": "pnpm -r build",
     "start": "pnpm --filter web start",
     "lint": "pnpm --filter web lint",
-    "typecheck": "pnpm --filter web typecheck",
-    "test": "pnpm --filter web test"
+    "typecheck": "pnpm --filter web typecheck"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
