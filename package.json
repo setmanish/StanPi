@@ -11,13 +11,24 @@
     "build": "pnpm -r build",
     "start": "pnpm --filter web start",
     "lint": "pnpm --filter web lint",
-    "typecheck": "pnpm --filter web typecheck"
+    "typecheck": "pnpm --filter web typecheck",
+    "test": "pnpm --filter web test",
+    "e2e": "pnpm --filter web e2e",
+    "format": "prettier --write .",
+    "db:push": "pnpm --filter web prisma db push",
+    "db:reset": "pnpm --filter web prisma migrate reset --force",
+    "db:seed": "pnpm --filter web prisma db seed"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.0.4",
     "eslint-config-prettier": "^9.0.0",
     "prettier": "^3.1.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "prisma": "^5.9.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.9.0",
+    "zod": "^3.22.4"
   }
 }

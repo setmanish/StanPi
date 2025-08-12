@@ -1,41 +1,54 @@
-# StanPi
+# StanPi Markets
 
-A web app for custom data analysis.
+A modern, responsive crypto market dashboard built with Next.js 14 and TypeScript. Features a searchable markets table, watchlist, and asset detail pages with candlestick charts.
 
-**Goal:** pastel default theme (Microsoft 365 vibe) + user theme controls (background, text, accent colors).
+## Install & Database
 
-## MVP Features
-- Asset list (rank, name, price, 24h change, volume, market cap)
-- Search, sort, filters
-- Candlestick/line charts per asset
-- Theme switcher (pastel default)
-- Pluggable custom data provider (REST/CSV/DB)
+```bash
+pnpm i
+docker compose up -d
+pnpm prisma migrate dev
+pnpm prisma db seed
+```
 
-## Proposed Stack
-- Next.js 14 + TypeScript
-- Tailwind CSS + shadcn/ui
-- Lightweight Charts (TradingView-style)
-- Zod (validation)
-- (Optional) Prisma + Postgres if persistence is needed
+## Run
 
-## Roadmap
-- [ ] Scaffold Next.js app (`apps/web`)
-- [ ] Theme system + pastel default
-- [ ] Listing table + sorting/filtering
-- [ ] Chart page with candlesticks
-- [ ] Pluggable custom data provider
-- [ ] Deploy (Vercel)
+```bash
+pnpm dev
+# open http://localhost:3000/markets
+```
 
-## Charts
+## Quick API checks
 
-The Asset page supports three pluggable chart renderers:
+```bash
+curl "http://localhost:3000/api/assets?search=ast&page=1&pageSize=20"
+curl "http://localhost:3000/api/assets/AST01"
+curl "http://localhost:3000/api/candles?symbol=AST01&range=1M"
+```
 
-1. **Lightweight Charts** – default, uses our mock data provider.
-2. **TradingView Charting Library** – drop the official `charting_library/`
-   folder into `apps/web/public/` and set
-   `NEXT_PUBLIC_TV_DATAFEED_URL=/api/tv` to use the mock UDF endpoints.
-3. **TradingView Embedded Widget** – injects TradingView's own data; no custom
-   data feed.
+## TradingView Library (optional)
 
-Use the selector on the asset page to switch modes. If the Charting Library
-files are missing the app falls back to the lightweight renderer.
+To enable the TradingView Charting Library drop the official files into `apps/web/public/charting_library/` and ensure these URLs return 200:
+
+- `/charting_library/charting_library.js`
+- `/charting_library/datafeeds/udf/dist/bundle.js`
+
+In DevTools console on an asset page:
+
+```js
+Boolean(window.TradingView) && Boolean(window.Datafeeds?.UDFCompatibleDatafeed);
+```
+
+## Tests
+
+```bash
+pnpm test
+pnpm e2e
+```
+
+## Lint/format
+
+```bash
+pnpm lint
+pnpm format
+```
