@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -18,7 +18,13 @@ import {
 
 // Column keys that support sorting. All current keys map to numeric Asset fields,
 // but the sort routine below also guards against future string additions.
-const sortKeys = ['rank', 'price', 'change24h', 'volume24h', 'marketCap'] as const;
+const sortKeys = [
+  'rank',
+  'price',
+  'change24h',
+  'volume24h',
+  'marketCap',
+] as const;
 type SortKey = (typeof sortKeys)[number];
 
 // Narrow unknown values to numbers at runtime
@@ -47,7 +53,8 @@ export default function MarketTable({ assets }: MarketTableProps) {
   const list = useMemo(() => {
     const q = debounced.toLowerCase();
     const filtered = assets.filter(
-      (a) => a.name.toLowerCase().includes(q) || a.symbol.toLowerCase().includes(q)
+      (a) =>
+        a.name.toLowerCase().includes(q) || a.symbol.toLowerCase().includes(q),
     );
     const sorted = [...filtered].sort((a, b) => {
       const av = a[sortKey];
@@ -96,6 +103,7 @@ export default function MarketTable({ assets }: MarketTableProps) {
                   Rank {sortIndicator('rank')}
                 </Button>
               </TableHead>
+              <TableHead>Watch</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>
                 <Button variant="ghost" onClick={() => handleSort('price')}>
@@ -123,11 +131,23 @@ export default function MarketTable({ assets }: MarketTableProps) {
           <TableBody>
             {list.map((a) => (
               <TableRow
-                key={a.id}
-                onClick={() => router.push(`/asset/${a.id}`)}
+                key={a.symbol}
+                onClick={() => router.push(`/asset/${a.symbol}`)}
                 className="cursor-pointer hover:bg-blue-50"
               >
                 <TableCell>{a.rank}</TableCell>
+                <TableCell>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      fetch(`/api/assets/${a.symbol}/watchlist`, {
+                        method: 'POST',
+                      });
+                    }}
+                  >
+                    ☆
+                  </button>
+                </TableCell>
                 <TableCell>
                   <div className="flex flex-col">
                     <span className="font-medium">{a.name}</span>
@@ -135,8 +155,13 @@ export default function MarketTable({ assets }: MarketTableProps) {
                   </div>
                 </TableCell>
                 <TableCell>${a.price.toFixed(2)}</TableCell>
-                <TableCell className={a.change24h >= 0 ? 'text-green-600' : 'text-red-600'}>
-                  {a.change24h >= 0 ? '+' : ''}{a.change24h.toFixed(2)}%
+                <TableCell
+                  className={
+                    a.change24h >= 0 ? 'text-green-600' : 'text-red-600'
+                  }
+                >
+                  {a.change24h >= 0 ? '+' : ''}
+                  {a.change24h.toFixed(2)}%
                 </TableCell>
                 <TableCell>{a.volume24h.toLocaleString()}</TableCell>
                 <TableCell>{a.marketCap.toLocaleString()}</TableCell>
